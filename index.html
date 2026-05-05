@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Tool for جمع</title>
+<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Scheherazade New', serif;
+    background-color: #fcfaf7;
+    direction: rtl;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    padding-top: 30px;
+    padding-bottom: 40px; 
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 220px);
+    gap: 8px;
+    padding: 20px;
+    padding-bottom: 0; 
+  }
+
+  .cell {
+    border: 1px solid #d1c4a8;
+    padding: 8px 15px; 
+    cursor: pointer;
+    background: white;
+    user-select: none;
+    font-size: 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease-in-out; 
+  }
+
+  .cell:hover {
+    background-color: #fcf8ef;
+    border-color: #8b0000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .selected {
+    background: #f0e6d2 !important;
+    border-color: #b5a478;
+    transform: translateY(0);
+  }
+
+  .text {
+    font-weight: 400;
+    color: #2c2c2c;
+  }
+
+  .letter {
+    color: #8b0000;
+    font-weight: 700;
+  }
+
+  button {
+    margin-top: 15px; 
+    margin-bottom: 20px;
+    padding: 10px 32px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: #fff;
+    color: #1a1a1a; 
+    border: 1px solid #d1c4a8;
+    border-radius: 0;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  button:hover {
+    background-color: #fcf8ef; 
+    border-color: #8b0000;
+    color: #8b0000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    transform: translateY(-1px);
+  }
+
+  button:active {
+    transform: translateY(0);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  }
+</style>
+</head>
+
+<body>
+
+<div class="grid" id="grid"></div>
+
+<button onclick="resetGrid()">Reset</button>
+
+<script>
+const data = [
+    [{text:"نافع المدني", letter:"أ"}, {text:"قالون", letter:"ب"}, {text:"ورش", letter:"ج"}],
+    [{text:"ابن كثير المكي", letter:"د"}, {text:"البزي", letter:"هـ"}, {text:"قنبل", letter:"ز"}],
+    [{text:"أبو عمرو البصري", letter:"ح"}, {text:"الدوري", letter:"ط"}, {text:"السوسي", letter:"ي"}],
+    [{text:"ابن عامر الشامي", letter:"ك"}, {text:"هشام", letter:"ل"}, {text:"ابن ذكوان", letter:"م"}],
+    [{text:"عاصم الكوفي", letter:"ن"}, {text:"شعبة", letter:"ص"}, {text:"حفص", letter:"ع"}],
+    [{text:"حمزة الكوفي", letter:"ف"}, {text:"خلف", letter:"ض"}, {text:"خلاد", letter:"ق"}],
+    [{text:"الكسائي الكوفي", letter:"ر"}, {text:"أبو الحارث", letter:"س"}, {text:"الدوري", letter:"ت"}]
+  ];
+
+  const rows = data.length;
+  const cols = 3;
+  const grid = document.getElementById("grid");
+  let cells = [];
+
+  for (let r = 0; r < rows; r++) {
+    cells[r] = [];
+    for (let c = 0; c < cols; c++) {
+      const div = document.createElement("div");
+      div.className = "cell";
+      div.innerHTML = `
+        <span class="text">${data[r][c].text}</span>
+        <span class="letter">${data[r][c].letter}</span>
+      `;
+      div.onclick = () => handleClick(r, c);
+      grid.appendChild(div);
+      cells[r][c] = div;
+    }
+  }
+
+  function isSelected(r, c) {
+    return cells[r][c].classList.contains("selected");
+  }
+
+  function setSelected(r, c, state) {
+    cells[r][c].classList.toggle("selected", state);
+  }
+
+  function handleClick(r, c) {
+    if (c === 0) {
+      // Logic: If clicking the Qari (index 0), toggle the entire row
+      const newState = !isSelected(r, 0);
+      setSelected(r, 0, newState);
+      setSelected(r, 1, newState);
+      setSelected(r, 2, newState);
+    } else {
+      // Logic: Clicking a Rawi (index 1 or 2)
+      const newState = !isSelected(r, c);
+      setSelected(r, c, newState);
+
+      // Check if both Rawis are now selected
+      if (isSelected(r, 1) && isSelected(r, 2)) {
+        setSelected(r, 0, true);
+      } else {
+        setSelected(r, 0, false);
+      }
+    }
+  }
+
+  function resetGrid() {
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        setSelected(r, c, false);
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
