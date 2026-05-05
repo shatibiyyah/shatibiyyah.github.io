@@ -19,14 +19,13 @@
     padding-bottom: 40px; 
   }
 
-.grid {
+  .grid {
     display: grid;
-    /* This allows columns to shrink if needed, but stay 220px on desktop */
     grid-template-columns: repeat(3, minmax(100px, 220px)); 
     gap: 8px;
-    padding: 10px; /* Reduced padding for the container */
+    padding: 10px;
     width: 100%;
-    max-width: 680px; /* Keeps it from getting too huge on ultrawide monitors */
+    max-width: 680px;
   }
 
   .cell {
@@ -39,9 +38,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    line-height: 1.2;
     transition: all 0.2s ease-in-out; 
-  }
 
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
   .cell:hover {
     background-color: #fcf8ef;
     border-color: #8b0000;
@@ -66,6 +68,7 @@
   }
 
   button {
+    -webkit-tap-highlight-color: transparent;
     margin-top: 15px; 
     margin-bottom: 20px;
     padding: 10px 32px;
@@ -99,19 +102,17 @@
   @media (max-width: 600px) {
     body {
       padding-top: 20px;
-      padding-left: 5px;  /* Minimal side padding so cells don't touch edges */
+      padding-left: 5px;
       padding-right: 5px;
     }
 
     .grid {
-      /* Tighten columns for small screens */
       grid-template-columns: repeat(3, 1fr); 
       gap: 4px;
       padding: 5px;
     }
 
     .cell {
-      /* Shrink font slightly for mobile so names don't wrap awkwardly */
       font-size: 18px; 
       padding: 8px 6px;
     }
@@ -170,17 +171,14 @@ const data = [
 
   function handleClick(r, c) {
     if (c === 0) {
-      // Logic: If clicking the Qari (index 0), toggle the entire row
       const newState = !isSelected(r, 0);
       setSelected(r, 0, newState);
       setSelected(r, 1, newState);
       setSelected(r, 2, newState);
     } else {
-      // Logic: Clicking a Rawi (index 1 or 2)
       const newState = !isSelected(r, c);
       setSelected(r, c, newState);
 
-      // Check if both Rawis are now selected
       if (isSelected(r, 1) && isSelected(r, 2)) {
         setSelected(r, 0, true);
       } else {
