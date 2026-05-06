@@ -120,6 +120,24 @@
       margin-left: 4px;
     }
   }
+
+  .cell[data-state="1"] {
+    background-color: #fdf8ef; 
+    border-color: #d1c4a8;
+  }
+
+  .cell[data-state="2"] {
+    background: #f0e6d2 !important;
+    border-color: #b5a478;
+    transform: translateY(0);
+  }
+
+  .cell:hover:not([data-state="2"]) {
+    background-color: #fcf8ef;
+    border-color: #8b0000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
 </style>
 </head>
 
@@ -150,6 +168,7 @@ const data = [
     for (let c = 0; c < cols; c++) {
       const div = document.createElement("div");
       div.className = "cell";
+      div.dataset.state = "0";
       div.innerHTML = `
         <span class="text">${data[r][c].text}</span>
         <span class="letter">${data[r][c].letter}</span>
@@ -168,28 +187,37 @@ const data = [
     cells[r][c].classList.toggle("selected", state);
   }
 
+  function getState(r, c) {
+    return parseInt(cells[r][c].dataset.state);
+  }
+
+  function setState(r, c, val) {
+    cells[r][c].dataset.state = val.toString();
+  }
+
   function handleClick(r, c) {
     if (c === 0) {
-      const newState = !isSelected(r, 0);
-      setSelected(r, 0, newState);
-      setSelected(r, 1, newState);
-      setSelected(r, 2, newState);
+      let currentState = getState(r, 0);
+      let nextState = (currentState + 1) % 3;
+      
+      setState(r, 0, nextState);
+      setState(r, 1, nextState);
+      setState(r, 2, nextState);
     } else {
-      const newState = !isSelected(r, c);
-      setSelected(r, c, newState);
+      let currentState = getState(r, c);
+      let nextState = (currentState + 1) % 3;
+      setState(r, c, nextState);
 
-      if (isSelected(r, 1) && isSelected(r, 2)) {
-        setSelected(r, 0, true);
-      } else {
-        setSelected(r, 0, false);
-      }
+      let r1 = getState(r, 1);
+      let r2 = getState(r, 2);
+      setState(r, 0, Math.min(r1, r2));
     }
   }
 
   function resetGrid() {
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        setSelected(r, c, false);
+        setState(r, c, 0);
       }
     }
   }
