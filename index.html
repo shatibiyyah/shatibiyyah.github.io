@@ -29,7 +29,7 @@
   }
 
   .cell {
-    border: 1px solid #d1c4a8;
+    border: 1px solid #b5a478;
     padding: 8px 15px; 
     cursor: pointer;
     background: white;
@@ -39,31 +39,23 @@
     justify-content: space-between;
     align-items: center;
     transition: all 0.2s ease-in-out; 
-
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
   }
+
   .cell:hover {
-    background-color: #fcf8ef;
-    border-color: #8b0000;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 
-  .selected {
-    background: #f0e6d2 !important;
-    border-color: #b5a478;
-    transform: translateY(0);
-  }
-
   .text {
-    font-weight: 400;
+    font-weight: 500;
     color: #2c2c2c;
   }
 
   .letter {
     color: #8b0000;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   button {
@@ -78,8 +70,8 @@
     text-transform: uppercase;
     cursor: pointer;
     background-color: #fff;
-    color: #1a1a1a; 
-    border: 1px solid #d1c4a8;
+    color: #2c2c2c; 
+    border: 1px solid #b5a478;
     border-radius: 0;
     transition: all 0.2s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -122,22 +114,13 @@
   }
 
   .cell[data-state="1"] {
-    background-color: #fdf8ef; 
-    border-color: #d1c4a8;
+    background-color: #fdf8ef !important;
   }
 
   .cell[data-state="2"] {
     background: #f0e6d2 !important;
-    border-color: #b5a478;
-    transform: translateY(0);
   }
 
-  .cell:hover:not([data-state="2"]) {
-    background-color: #fcf8ef;
-    border-color: #8b0000;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
 </style>
 </head>
 
@@ -177,14 +160,6 @@ const data = [
       grid.appendChild(div);
       cells[r][c] = div;
     }
-  }
-
-  function isSelected(r, c) {
-    return cells[r][c].classList.contains("selected");
-  }
-
-  function setSelected(r, c, state) {
-    cells[r][c].classList.toggle("selected", state);
   }
 
   function getState(r, c) {
