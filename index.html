@@ -1,202 +1,201 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8">
-<title>Tracker for جمع</title>
-<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap" rel="stylesheet">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<title>Tracker for جمع</title>
+	<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-  body {
-    font-family: 'Scheherazade New', serif;
-    background-color: #fcfaf7;
-    direction: rtl;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    padding-top: 30px;
-    padding-bottom: 40px; 
-  }
+	<style>
+		body {
+			font-family: 'Scheherazade New', serif;
+			background-color: #fcfaf7;
+			direction: rtl;
+			margin: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding-top: 30px;
+			padding-bottom: 40px;
+		}
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(100px, 220px)); 
-    gap: 8px;
-    padding: 10px;
-    width: 100%;
-    max-width: 680px;
-  }
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(100px, 220px));
+			gap: 8px;
+			padding: 10px;
+			width: 100%;
+			max-width: 680px;
+		}
 
-  .cell {
-    border: 1px solid #b5a478;
-    padding: 8px 15px; 
-    cursor: pointer;
-    background: white;
-    user-select: none;
-    font-size: 26px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.2s ease-in-out; 
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-  }
+		.cell {
+			border: 1px solid #b5a478;
+			padding: 8px 15px;
+			cursor: pointer;
+			background: white;
+			user-select: none;
+			font-size: 26px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			transition: all 0.2s ease-in-out;
+			-webkit-tap-highlight-color: transparent;
+			-webkit-touch-callout: none;
+		}
 
-  .cell:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
+		.cell:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		}
 
-  .text {
-    font-weight: 500;
-    color: #2c2c2c;
-  }
+		.text {
+			font-weight: 500;
+			color: #2c2c2c;
+		}
 
-  .letter {
-    color: #8b0000;
-    font-weight: 600;
-  }
+		.letter {
+			color: #8b0000;
+			font-weight: 600;
+		}
 
-  button {
-    -webkit-tap-highlight-color: transparent;
-    margin-top: 15px; 
-    margin-bottom: 20px;
-    padding: 10px 32px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    background-color: #fff;
-    color: #2c2c2c; 
-    border: 1px solid #b5a478;
-    border-radius: 0;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  }
+		button {
+			-webkit-tap-highlight-color: transparent;
+			margin-top: 15px;
+			margin-bottom: 20px;
+			padding: 10px 32px;
+			font-family: 'Montserrat', sans-serif;
+			font-size: 13px;
+			font-weight: 600;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			cursor: pointer;
+			background-color: #fff;
+			color: #2c2c2c;
+			border: 1px solid #b5a478;
+			border-radius: 0;
+			transition: all 0.2s ease;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+		}
 
-  button:hover {
-    background-color: #fcf8ef; 
-    border-color: #8b0000;
-    color: #8b0000;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-    transform: translateY(-1px);
-  }
+		button:hover {
+			background-color: #fcf8ef;
+			border-color: #8b0000;
+			color: #8b0000;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+			transform: translateY(-1px);
+		}
 
-  button:active {
-    transform: translateY(0);
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-  }
+		button:active {
+			transform: translateY(0);
+			box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+		}
 
-  @media (max-width: 600px) {
-    body {
-      padding-top: 20px;
-      padding-left: 5px;
-      padding-right: 5px;
-    }
+		@media (max-width: 600px) {
+			body {
+				padding-top: 20px;
+				padding-left: 5px;
+				padding-right: 5px;
+			}
 
-    .grid {
-      grid-template-columns: repeat(3, 1fr); 
-      gap: 4px;
-      padding: 5px;
-    }
+			.grid {
+				grid-template-columns: repeat(3, 1fr);
+				gap: 4px;
+				padding: 5px;
+			}
 
-    .cell {
-      font-size: 18px; 
-      padding: 8px 6px;
-    }
+			.cell {
+				font-size: 18px;
+				padding: 8px 6px;
+			}
 
-    .letter {
-      margin-left: 4px;
-    }
-  }
+			.letter {
+				margin-left: 4px;
+			}
+		}
 
-  .cell[data-state="1"] {
-    background-color: #fdf8ef !important;
-  }
+		.cell[data-state="1"] {
+			background-color: #fdf8ef !important;
+		}
 
-  .cell[data-state="2"] {
-    background: #f0e6d2 !important;
-  }
-
-</style>
+		.cell[data-state="2"] {
+			background: #f0e6d2 !important;
+		}
+	</style>
 </head>
 
 <body>
 
-<div class="grid" id="grid"></div>
+	<div class="grid" id="grid"></div>
 
-<button onclick="resetGrid()">Reset</button>
+	<button onclick="resetGrid()">Reset</button>
 
-<script>
-const data = [
-    [{text:"نافع المدني", letter:"أ"}, {text:"قالون", letter:"ب"}, {text:"ورش", letter:"ج"}],
-    [{text:"ابن كثير المكي", letter:"د"}, {text:"البزي", letter:"هـ"}, {text:"قنبل", letter:"ز"}],
-    [{text:"أبو عمرو البصري", letter:"ح"}, {text:"الدوري", letter:"ط"}, {text:"السوسي", letter:"ي"}],
-    [{text:"ابن عامر الشامي", letter:"ك"}, {text:"هشام", letter:"ل"}, {text:"ابن ذكوان", letter:"م"}],
-    [{text:"عاصم الكوفي", letter:"ن"}, {text:"شعبة", letter:"ص"}, {text:"حفص", letter:"ع"}],
-    [{text:"حمزة الكوفي", letter:"ف"}, {text:"خلف", letter:"ض"}, {text:"خلاد", letter:"ق"}],
-    [{text:"الكسائي الكوفي", letter:"ر"}, {text:"أبو الحارث", letter:"س"}, {text:"الدوري", letter:"ت"}]
-  ];
+	<script>
+		const data = [
+			[{ text: "نافع المدني", letter: "أ" }, { text: "قالون", letter: "ب" }, { text: "ورش", letter: "ج" }],
+			[{ text: "ابن كثير المكي", letter: "د" }, { text: "البزي", letter: "هـ" }, { text: "قنبل", letter: "ز" }],
+			[{ text: "أبو عمرو البصري", letter: "ح" }, { text: "الدوري", letter: "ط" }, { text: "السوسي", letter: "ي" }],
+			[{ text: "ابن عامر الشامي", letter: "ك" }, { text: "هشام", letter: "ل" }, { text: "ابن ذكوان", letter: "م" }],
+			[{ text: "عاصم الكوفي", letter: "ن" }, { text: "شعبة", letter: "ص" }, { text: "حفص", letter: "ع" }],
+			[{ text: "حمزة الكوفي", letter: "ف" }, { text: "خلف", letter: "ض" }, { text: "خلاد", letter: "ق" }],
+			[{ text: "الكسائي الكوفي", letter: "ر" }, { text: "أبو الحارث", letter: "س" }, { text: "الدوري", letter: "ت" }]
+		];
 
-  const rows = data.length;
-  const cols = 3;
-  const grid = document.getElementById("grid");
-  let cells = [];
+		const rows = data.length;
+		const cols = 3;
+		const grid = document.getElementById("grid");
+		let cells = [];
 
-  for (let r = 0; r < rows; r++) {
-    cells[r] = [];
-    for (let c = 0; c < cols; c++) {
-      const div = document.createElement("div");
-      div.className = "cell";
-      div.dataset.state = "0";
-      div.innerHTML = `
-        <span class="text">${data[r][c].text}</span>
-        <span class="letter">${data[r][c].letter}</span>
-      `;
-      div.onclick = () => handleClick(r, c);
-      grid.appendChild(div);
-      cells[r][c] = div;
-    }
-  }
+		for (let r = 0; r < rows; r++) {
+			cells[r] = [];
+			for (let c = 0; c < cols; c++) {
+				const div = document.createElement("div");
+				div.className = "cell";
+				div.dataset.state = "0";
+				div.innerHTML = `
+					<span class="text">${data[r][c].text}</span>
+					<span class="letter">${data[r][c].letter}</span>
+				`;
+				div.onclick = () => handleClick(r, c);
+				grid.appendChild(div);
+				cells[r][c] = div;
+			}
+		}
 
-  function getState(r, c) {
-    return parseInt(cells[r][c].dataset.state);
-  }
+		function getState(r, c) {
+			return parseInt(cells[r][c].dataset.state);
+		}
 
-  function setState(r, c, val) {
-    cells[r][c].dataset.state = val.toString();
-  }
+		function setState(r, c, val) {
+			cells[r][c].dataset.state = val.toString();
+		}
 
-  function handleClick(r, c) {
-    if (c === 0) {
-      let currentState = getState(r, 0);
-      let nextState = (currentState + 1) % 3;
-      
-      setState(r, 0, nextState);
-      setState(r, 1, nextState);
-      setState(r, 2, nextState);
-    } else {
-      let currentState = getState(r, c);
-      let nextState = (currentState + 1) % 3;
-      setState(r, c, nextState);
+		function handleClick(r, c) {
+			if (c === 0) {
+				let currentState = getState(r, 0);
+				let nextState = (currentState + 1) % 3;
 
-      let r1 = getState(r, 1);
-      let r2 = getState(r, 2);
-      setState(r, 0, Math.min(r1, r2));
-    }
-  }
+				setState(r, 0, nextState);
+				setState(r, 1, nextState);
+				setState(r, 2, nextState);
+			} else {
+				let currentState = getState(r, c);
+				let nextState = (currentState + 1) % 3;
+				setState(r, c, nextState);
 
-  function resetGrid() {
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        setState(r, c, 0);
-      }
-    }
-  }
-</script>
+				let r1 = getState(r, 1);
+				let r2 = getState(r, 2);
+				setState(r, 0, Math.min(r1, r2));
+			}
+		}
+
+		function resetGrid() {
+			for (let r = 0; r < rows; r++) {
+				for (let c = 0; c < cols; c++) {
+					setState(r, c, 0);
+				}
+			}
+		}
+	</script>
 
 </body>
 </html>
